@@ -5,6 +5,6 @@ leguan =
   access_token_secret: ''
 
 rest =
-  trackingWords: '".."'
+  trackingWords: '"..."'
   languages: 'de'
 module.exports = {leguan, rest}

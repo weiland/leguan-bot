@@ -1,13 +1,12 @@
 {
-    "name": "example",
-    "version": "0.0.1",
-
-    "description": "example",
-    "author": "Pascal Weiland",
-    "dependencies": {
-      "coffee-script": "1.7.x",
-      "twit": "1.1.15"
-    },
-    "devDependencies": {
-    }
+  "name": "example",
+  "version": "0.0.1",
+  "description": "example",
+  "author": "Pascal Weiland",
+  "dependencies": {
+    "coffee-script": "1.7.x",
+    "nodemon": "~1.2.0",
+    "twit": "~1.1.15"
+  },
+  "devDependencies": {}
 }
