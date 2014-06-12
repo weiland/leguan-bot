@@ -1,0 +1,10 @@
+leguan =
+  consumer_key: ''
+  consumer_secret: ''
+  access_token: ''
+  access_token_secret: ''
+
+rest =
+  trackingWords: '".."'
+  languages: 'de'
+module.exports = {leguan, rest}
