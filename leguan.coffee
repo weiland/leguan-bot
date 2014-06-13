@@ -11,6 +11,9 @@ class Leguan extends Base
   currentTweet : false
 
   constructor: ->
+    if process.mainModule.filename.indexOf('leguan.coffee') > 0
+      console.error('dont run the leguan.coffee. run the app.coffee instead!')
+      process.kill()
     @twitter = new (require('twit'))(@config.twitter)
     @config = @config.rest # dunno whether this is a good idea
     @isValid = true if @twitter
@@ -29,7 +32,7 @@ class Leguan extends Base
     return unless @isActive or @isValid
     @log('looking for tweets');
     @stream.on 'tweet', (tweet) =>
-      @log('found a tweet: ', tweet.text, tweet.id, tweet.user.screen_name)
+      @log("found a tweet: '#{tweet.text}' by #{tweet.user.screen_name}")
       @currentTweet = tweet
       @retweet() if @isValidTweet()
 
@@ -43,17 +46,18 @@ class Leguan extends Base
       return @err('Error while posting a tweet: ', err) if err
       @log('Tweet successfully posted: ', data)
 
-  retweet: =>
-    tweetID = @currentTweet?.id
+  retweet: ->
+    tweetID = @currentTweet?.id_str # needs to be a string
+    #console.log(tweetID.toString())
     @twitter.post 'statuses/retweet/:id',
       id: tweetID
+      language: 'de'
     , (err, data, response) =>
-      return @err('Error while retweeting: ', err) if err
-      #@log(data)
-      @log 'tweet retweeted :)'
+      return console.error('Error while retweeting: ', err) if err and err.length
+      @log 'retweeted '
 
   isValidTweet: ->
-    false if @currentTweet?.user.screen_name == 'keineHobbies' # prevent own retweets
+    false if @currentTweet?.user.id == 552954416 # prevent own retweets
     true
 
   isError: (res) ->
